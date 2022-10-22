@@ -1,0 +1,32 @@
+server:
+  port: 8099
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8090/eureka}
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: resourceService
+          uri: lb://resource-service
+          predicates:
+            - Path=/resources/**
+        - id: songService
+          uri: lb://song-service
+          predicates:
+            - Path=/songs/**
+
+logging:
+  level:
+    reactor:
+      netty: INFO
+    org:
+      springframework:
+        cloud:
+          gateway: INFO
