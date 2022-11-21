@@ -24,6 +24,9 @@ spring:
           uri: lb://storage-service
           predicates:
             - Path=/storages/**
+        - id: resourceProcessor
+          uri: lb://resource-processor
+            - Path=/processor/**
 
 logging:
   level:
