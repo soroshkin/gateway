@@ -16,6 +16,10 @@ spring:
           uri: lb://resource-service
           predicates:
             - Path=/resources/**
+        - id: authService
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth/**
         - id: songService
           uri: lb://song-service
           predicates:
@@ -36,6 +40,23 @@ spring:
           uri: http://grafana:3000
           predicates:
             - Path=/grafana/**
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:3000"
+              - "http://127.0.0.1:3000"
+            allowedHeaders: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - OPTIONS
+              - DELETE
+
+
+
 
 logging:
   level:
